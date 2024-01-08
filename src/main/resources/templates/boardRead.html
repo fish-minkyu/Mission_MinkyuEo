@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<head>
+  <meta charset="UTF-8">
+  <title>Board Read</title>
+</head>
+<body>
+  <h1>[[${board.boardName}]]</h1>
+
+  <div th:if="${board.articles.isEmpty()}">
+    <p>No Articles Here...</p>
+  </div>
+  <div th:unless="${board.articles.isEmpty()}">
+    <p th:each="article : ${board.articles}">
+      <a th:href="@{/article/{articleId}(articleId=${article.id})}">[[${article.title}]]</a>
+    </p>
+  </div>
+  <a th:href="@{/boards/{boardId}(boardId=${board.id})/article}">게시글 작성</a>
+  <a href="/boards">뒤로 가기</a>
+</body>
+</html>
