@@ -27,10 +27,10 @@ public class ArticleService {
     Optional<BoardEntity> board = boardRepository.findById(boardId);
 
     ArticleEntity article = new ArticleEntity();
-    article.setBoard(board.orElse(null));
     article.setTitle(title);
     article.setContent(content);
     article.setPassword(password);
+    article.setBoard(board.orElse(null));
     articleRepository.save(article);
   }
 
@@ -63,5 +63,18 @@ public class ArticleService {
   // Delete
   public void delete(Long articleId) {
     articleRepository.deleteById(articleId);
+  }
+
+  // 비밀번호 확인
+  public Boolean checkPassword(
+    Long articleId,
+    String inputPassword
+  ) {
+    String password = readOne(articleId).getPassword();
+    if (password.equals(inputPassword)){
+      delete(articleId);
+      return true;
+    }
+    else return false;
   }
 }

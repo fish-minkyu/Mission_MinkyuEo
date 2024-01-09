@@ -21,13 +21,42 @@
     내용: [[${article.content}]]
   </p>
 </div>
-<form th:action="@{/article/{articleId}/password-view/update(articleId=${article.id})}" method="get">
-  <!-- 수정버튼 -->
-  <input type="submit" name="update" value="Edit">
-</form>
-<form th:action="@{/article/{articleId}/password-view/delete(articleId=${article.id})}" method="get">
-  <!--삭제 버튼-->
-  <input type="submit" name="delete" value="Delete">
+<div style="display: flex" class="mb-3">
+  <form th:action="@{/article/{articleId}/password-view/update(articleId=${article.id})}" method="get">
+    <!-- 수정버튼 -->
+    <input type="submit" name="update" value="Edit">
+  </form>
+  <form th:action="@{/article/{articleId}/password-view/delete(articleId=${article.id})}" method="get">
+    <!--삭제 버튼-->
+    <input type="submit" name="delete" value="Delete">
+  </form>
+</div>
+
+댓글쓰기
+<hr/>
+<div class="mb-3">
+    <form
+      th:each="comment : ${comments}"
+      th:action="@{/article/{articleId}/comment/{commentId}/password-view(articleId=${article.id}, commentId=${comment.id})}"
+      method="get">
+      <p>[[${comment.content}]]</p>
+      <input type="submit" value="댓글 삭제">
+    <hr/>
+    </form>
+</div>
+
+<form th:action="@{/article/{articleId}/comment(articleId=${article.id})}" method="post">
+  <div>
+    <label>
+      <textarea name="content" rows="2" cols="30" ></textarea>
+    </label>
+  </div>
+  <div>
+    <label>
+      비밀번호: <input type="text" name="password">
+    </label>
+  </div><br>
+  <input type="submit" value="등록">
 </form>
 </body>
 </html>

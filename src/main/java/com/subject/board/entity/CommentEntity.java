@@ -1,12 +1,14 @@
 package com.subject.board.entity;
 
 import jakarta.persistence.*;
+import lombok.Data;
 
+@Data
 @Entity
 public class CommentEntity {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private Long commentId;
+  private Long id;
   private String content;
   private String password;
   @ManyToOne

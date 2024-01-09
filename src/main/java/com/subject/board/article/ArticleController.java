@@ -1,6 +1,8 @@
 package com.subject.board.article;
 
 import com.subject.board.BoardService;
+import com.subject.board.comment.CommentService;
+import com.subject.board.entity.ArticleEntity;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 public class ArticleController {
   private final ArticleService articleService;
   private final BoardService boardService;
+  private final CommentService commentService;
 
   // Read, 전체 보기
   @GetMapping
@@ -39,6 +42,7 @@ public class ArticleController {
     Model model
   ) {
     model.addAttribute("article", articleService.readOne(articleId));
+    model.addAttribute("comments", commentService.findByArticleId(articleId));
     return "article/read";
   }
 
@@ -100,9 +104,7 @@ public class ArticleController {
     @RequestParam("input-password") String inputPassword,
     Model model
   ) {
-    String password = articleService.readOne(articleId).getPassword();
-    if (password.equals(inputPassword)) {
-      articleService.delete(articleId);
+    if (articleService.checkPassword(articleId, inputPassword)) {
       return "redirect:/article";
     } else {
       model.addAttribute("article", articleService.readOne(articleId));

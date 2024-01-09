@@ -16,3 +16,18 @@ VALUES
   ('test3', 'test3', '1234', 3),
   ('test4', 'test4', '1234', 4),
   ('test4', 'test4', '1234', 4);
+
+INSERT INTO comment_entity(content, password, article_id)
+VALUES
+  ('comment_test', '1234', 1),
+  ('comment_test', '1234', 1),
+  ('comment_test', '1234', 2),
+  ('comment_test', '1234', 3),
+  ('comment_test', '1234', 3),
+  ('comment_test', '1234', 3),
+  ('comment_test', '1234', 4),
+  ('comment_test', '1234', 4),
+  ('comment_test', '1234', 5),
+  ('comment_test', '1234', 6),
+  ('comment_test', '1234', 7),
+  ('comment_test', '1234', 7);
