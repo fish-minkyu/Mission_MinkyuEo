@@ -2,7 +2,6 @@ package com.subject.board.article;
 
 import com.subject.board.BoardService;
 import com.subject.board.comment.CommentService;
-import com.subject.board.entity.ArticleEntity;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -21,6 +20,11 @@ public class ArticleController {
   public String readAll(Model model) {
     model.addAttribute("articles", articleService.readAll());
     return "article/home";
+  }
+
+  @GetMapping("/create")
+  public String createPage() {
+    return "article/create";
   }
 
   // Create
@@ -89,6 +93,7 @@ public class ArticleController {
   }
 
   // Delete
+  // delete-password-view
   @GetMapping("/{articleId}/password-view/delete")
   public String passwordViewDelete(
     @PathVariable("articleId") Long articleId,
@@ -98,6 +103,7 @@ public class ArticleController {
     return "article/checkPasswordDelete";
   }
 
+  // 비밀번호가 일치하면 삭제, 틀리면 경고창
   @PostMapping("/{articleId}/passwordCheck/delete")
   public String checkPasswordDelete(
     @PathVariable("articleId") Long articleId,

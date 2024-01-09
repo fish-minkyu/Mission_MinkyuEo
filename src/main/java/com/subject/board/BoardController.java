@@ -13,7 +13,7 @@ public class BoardController {
   private final ArticleService articleService;
   private final BoardService boardService;
 
-  // 랜딩 페이지
+  // 랜딩 페이지(전체 게시글 보기)
   @GetMapping
   public String list(Model model) {
     model.addAttribute("boardList", boardService.readAll());
@@ -32,6 +32,7 @@ public class BoardController {
     return "boardRead";
   }
 
+  // 게시글 생성 view 페이지로 이동
   @GetMapping("{boardId}/article")
   public String createArticle(Model model) {
     model.addAttribute("boards", boardService.readAll());

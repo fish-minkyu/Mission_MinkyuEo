@@ -13,7 +13,7 @@ public class CommentController {
   private final CommentService commentService;
   private final ArticleService articleService;
 
-  // 댓글 생성
+  // Create
   @PostMapping("/{articleId}/comment")
   public String createComment(
     @PathVariable("articleId") Long articleId,
@@ -24,6 +24,8 @@ public class CommentController {
     return String.format("redirect:/article/%d", articleId);
   }
 
+  // 비밀번호 확인
+  // delete-password-view
   @GetMapping("/{articleId}/comment/{commentId}/password-view")
   public String passwordViewComment(
     @PathVariable("articleId") Long articleId,
@@ -35,6 +37,7 @@ public class CommentController {
     return "comment/checkPasswordDelete";
   }
 
+  // Delete
   @PostMapping("/{articleId}/comment/{commentId}/delete")
   public String deleteComment(
     @PathVariable("articleId") Long articleId,

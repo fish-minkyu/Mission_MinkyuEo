@@ -15,10 +15,7 @@ public class CommentService {
   private final ArticleRepository articleRepository;
   private final CommentRepository commentRepository;
 
-  public List<CommentEntity> findByArticleId(Long articleId) {
-    return commentRepository.findByArticleId(articleId);
-  }
-
+  // Create
   public void create(
     String content,
     String password,
@@ -32,15 +29,23 @@ public class CommentService {
     commentRepository.save(comment);
   }
 
+  // Read
+  // 게시글별 댓글 조회
+  public List<CommentEntity> findByArticleId(Long articleId) {
+    return commentRepository.findByArticleId(articleId);
+  }
+
   public CommentEntity readOne(Long commentId) {
     return commentRepository.findById(commentId)
       .orElse(null);
   }
 
+  // Delete
   public void delete(Long commentId) {
     commentRepository.deleteById(commentId);
   }
 
+  // 비밀번호 확인
   public Boolean checkPassword(
     Long commentId,
     String inputPassword

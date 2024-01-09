@@ -15,6 +15,7 @@ public class ArticleEntity {
   private Long id;
   private String title;
   private String content;
+  @Column(nullable = false)
   private String password;
   @ManyToOne
   private BoardEntity board;

@@ -6,7 +6,6 @@ import com.subject.board.entity.BoardEntity;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
 import java.util.Optional;
 
@@ -35,10 +34,12 @@ public class ArticleService {
   }
 
   // Read
+  // 전체 보기
   public List<ArticleEntity> readAll() {
     return articleRepository.findAll(Sort.by(Sort.Direction.DESC, "id"));
   }
 
+  // 상세보기
   public ArticleEntity readOne(Long articleId) {
     return articleRepository.findById(articleId)
       .orElse(null);

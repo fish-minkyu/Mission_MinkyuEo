@@ -5,6 +5,7 @@
   <title>Title</title>
 </head>
 <body>
+<h1>Article List</h1>
   <div th:each="article : ${articles}">
     <p>
       <a th:href="@{/article/{articleId}(articleId=${article.id})}">
@@ -12,5 +13,9 @@
       </a>
     </p>
   </div>
+  <form action="/article/create" method="get">
+    <input type="submit" value="게시글 작성하기">
+  </form>
+  <a href="/boards">Back</a>
 </body>
 </html>

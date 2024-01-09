@@ -10,6 +10,7 @@ public class CommentEntity {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
   private String content;
+  @Column(nullable = false)
   private String password;
   @ManyToOne
   private ArticleEntity article;
