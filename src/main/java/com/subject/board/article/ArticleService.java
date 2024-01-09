@@ -4,6 +4,7 @@ import com.subject.board.BoardRepository;
 import com.subject.board.entity.ArticleEntity;
 import com.subject.board.entity.BoardEntity;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -35,7 +36,7 @@ public class ArticleService {
 
   // Read
   public List<ArticleEntity> readAll() {
-    return articleRepository.findAll();
+    return articleRepository.findAll(Sort.by(Sort.Direction.DESC, "id"));
   }
 
   public ArticleEntity readOne(Long articleId) {

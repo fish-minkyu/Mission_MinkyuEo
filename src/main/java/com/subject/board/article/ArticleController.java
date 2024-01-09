@@ -1,13 +1,10 @@
 package com.subject.board.article;
 
 import com.subject.board.BoardService;
-import com.subject.board.entity.ArticleEntity;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @Controller
 @RequestMapping("/article")
@@ -45,25 +42,37 @@ public class ArticleController {
     return "article/read";
   }
 
-  @GetMapping("/{articleId}/password")
-  public String checkPassword() {
-
-    return "checkPassword";
-  }
-
   // Update
-  // update-view 보여주기(완료)
-  @GetMapping("/{articleId}/update-view")
-  public String updateView(
+  // 비밀번호 화면
+  @GetMapping("/{articleId}/password-view/update")
+  public String passwordViewUpdate(
     @PathVariable("articleId") Long articleId,
     Model model
   ) {
     model.addAttribute("article", articleService.readOne(articleId));
-    model.addAttribute("boards", boardService.readAll());
-    return "article/update";
+    return "article/checkPasswordUpdate";
   }
 
-  // update 실행
+  // 비밀번호 확인 -> update view(확인)
+  @PostMapping("/{articleId}/passwordCheck/update")
+  public String checkPasswordUpdate(
+    @PathVariable("articleId") Long articleId,
+    @RequestParam("input-password") String inputPassword,
+    Model model
+  ) {
+    String password = articleService.readOne(articleId).getPassword();
+    if (password.equals(inputPassword)) {
+      model.addAttribute("article", articleService.readOne(articleId));
+      model.addAttribute("boards", boardService.readAll());
+      return "article/update";
+    } else {
+      model.addAttribute("article", articleService.readOne(articleId));
+      model.addAttribute("error", "비밀번호가 일치하지 않습니다.");
+      return "article/checkPasswordUpdate";
+    }
+  }
+
+  // update 실행(확인)
   @PostMapping("/{articleId}/update")
   public String update(
     @PathVariable("articleId") Long articleId,
@@ -75,12 +84,30 @@ public class ArticleController {
     return String.format("redirect:/article/%d", articleId);
   }
 
-  // Delete(완료)
-  @PostMapping("{articleId}/delete")
-  public String deleteArticle(
-    @PathVariable("articleId") Long articleId
+  // Delete
+  @GetMapping("/{articleId}/password-view/delete")
+  public String passwordViewDelete(
+    @PathVariable("articleId") Long articleId,
+    Model model
   ) {
-    articleService.delete(articleId);
-    return "redirect:/article";
+    model.addAttribute("article", articleService.readOne(articleId));
+    return "article/checkPasswordDelete";
+  }
+
+  @PostMapping("/{articleId}/passwordCheck/delete")
+  public String checkPasswordDelete(
+    @PathVariable("articleId") Long articleId,
+    @RequestParam("input-password") String inputPassword,
+    Model model
+  ) {
+    String password = articleService.readOne(articleId).getPassword();
+    if (password.equals(inputPassword)) {
+      articleService.delete(articleId);
+      return "redirect:/article";
+    } else {
+      model.addAttribute("article", articleService.readOne(articleId));
+      model.addAttribute("error", "비밀번호가 일치하지 않습니다.");
+      return "article/checkPasswordDelete";
+    }
   }
 }
