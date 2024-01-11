@@ -16,5 +16,6 @@ public class BoardEntity {
   private Long id;
   private String boardName;
   @OneToMany(mappedBy = "board")
+  @OrderBy("id DESC") // article의 id를 내림차순으로 정렬
   private List<ArticleEntity> articles;
 }
