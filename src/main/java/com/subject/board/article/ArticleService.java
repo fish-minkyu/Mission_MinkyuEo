@@ -77,4 +77,22 @@ public class ArticleService {
     }
     else return false;
   }
+
+  // Search
+  public List<ArticleEntity> search(
+    String category,
+    String search
+  ) {
+    List<ArticleEntity> articles = null;
+    switch (category) {
+      case "title":
+        articles = articleRepository.findAllByTitleContaining(search);
+        break;
+      case "content":
+        articles = articleRepository.findAllByContentContaining(search);
+        break;
+    }
+
+    return articles;
+  }
 }

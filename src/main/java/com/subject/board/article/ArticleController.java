@@ -2,11 +2,15 @@ package com.subject.board.article;
 
 import com.subject.board.board.BoardService;
 import com.subject.board.comment.CommentService;
+import com.subject.board.entity.ArticleEntity;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 @Controller
@@ -37,11 +41,11 @@ public class ArticleController {
   }
 
   // Read
-  // 전체 보기
+  // 전체 보기(= 전체 게시판)
   @GetMapping
   public String readAll(Model model) {
     model.addAttribute("articles", articleService.readAll());
-    return "article/home";
+    return "home";
   }
 
   // 상세 보기
@@ -128,5 +132,16 @@ public class ArticleController {
       redirectAttributes.addFlashAttribute("error", "비밀번호가 일치하지 않습니다.");
       return "redirect:/article/" + articleId + "/password-view/delete"; // 다시 비밀번호 입력 페이지로 리다이렉트
     }
+  }
+
+  // Search
+  @PostMapping("/search")
+  public String searchArticle(
+    @RequestParam("category") String category,
+    @RequestParam("search") String search,
+    Model model
+  ) {
+    model.addAttribute("articles", articleService.search(category, search));
+    return "article/searchArticle";
   }
 }

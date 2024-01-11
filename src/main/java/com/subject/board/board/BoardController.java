@@ -38,4 +38,17 @@ public class BoardController {
     model.addAttribute("boards", boardService.readAll());
     return "article/create";
   }
+
+  // 게시판별 Search
+  @PostMapping("/{boardId}/search")
+  public String searchBoard(
+    @PathVariable("boardId") Long boardId,
+    @RequestParam("category") String category,
+    @RequestParam("search") String search,
+    Model model
+  ) {
+    model.addAttribute("board", boardService.readBoard(boardId));
+    model.addAttribute("articles", boardService.search(boardId, category, search));
+    return "searchBoard";
+  }
 }
