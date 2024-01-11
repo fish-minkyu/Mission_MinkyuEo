@@ -71,8 +71,7 @@ public class ArticleController {
     @RequestParam("input-password") String inputPassword,
     Model model
   ) {
-    String password = articleService.readOne(articleId).getPassword();
-    if (password.equals(inputPassword)) {
+    if (articleService.checkPassword(articleId, inputPassword)) {
       model.addAttribute("article", articleService.readOne(articleId));
       model.addAttribute("boards", boardService.readAll());
       return "article/update";
