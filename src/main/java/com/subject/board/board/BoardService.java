@@ -1,4 +1,4 @@
-package com.subject.board;
+package com.subject.board.board;
 
 import com.subject.board.entity.BoardEntity;
 import lombok.RequiredArgsConstructor;
@@ -10,12 +10,12 @@ import java.util.List;
 public class BoardService {
   private final BoardRepository boardRepository;
 
-  // list page
+  // 전체 게시판 보기
   public List<BoardEntity> readAll() {
     return boardRepository.findAll();
   }
 
-  // boardRead
+  // 게시판 상세보기
   public BoardEntity readBoard(Long boardId) {
     return boardRepository.findById(boardId)
       .orElse(null);

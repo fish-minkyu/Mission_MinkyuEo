@@ -1,6 +1,6 @@
 package com.subject.board.article;
 
-import com.subject.board.BoardRepository;
+import com.subject.board.board.BoardRepository;
 import com.subject.board.entity.ArticleEntity;
 import com.subject.board.entity.BoardEntity;
 import lombok.RequiredArgsConstructor;

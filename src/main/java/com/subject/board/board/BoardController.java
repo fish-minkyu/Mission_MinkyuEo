@@ -1,4 +1,4 @@
-package com.subject.board;
+package com.subject.board.board;
 
 import com.subject.board.article.ArticleService;
 import lombok.RequiredArgsConstructor;
@@ -13,7 +13,7 @@ public class BoardController {
   private final ArticleService articleService;
   private final BoardService boardService;
 
-  // 랜딩 페이지(전체 게시글 보기)
+  // 랜딩 페이지(전체 게시판 보기)
   @GetMapping
   public String list(Model model) {
     model.addAttribute("boardList", boardService.readAll());

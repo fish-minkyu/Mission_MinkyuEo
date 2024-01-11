@@ -1,6 +1,6 @@
 package com.subject.board.article;
 
-import com.subject.board.BoardService;
+import com.subject.board.board.BoardService;
 import com.subject.board.comment.CommentService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -15,19 +15,14 @@ public class ArticleController {
   private final BoardService boardService;
   private final CommentService commentService;
 
-  // Read, 전체 보기
-  @GetMapping
-  public String readAll(Model model) {
-    model.addAttribute("articles", articleService.readAll());
-    return "article/home";
-  }
-
+  // Create
+  // 게시글 생성 view로 이동
   @GetMapping("/create")
   public String createPage() {
     return "article/create";
   }
 
-  // Create
+  // create 로직
   @PostMapping("/create")
   public String create(
     @RequestParam("board-id") Long boardId,
@@ -39,7 +34,15 @@ public class ArticleController {
     return "redirect:/article";
   }
 
-  // Read, 상세 보기(완료)
+  // Read
+  // 전체 보기
+  @GetMapping
+  public String readAll(Model model) {
+    model.addAttribute("articles", articleService.readAll());
+    return "article/home";
+  }
+
+  // 상세 보기
   @GetMapping("/{articleId}")
   public String readOne(
     @PathVariable("articleId") Long articleId,
@@ -51,7 +54,7 @@ public class ArticleController {
   }
 
   // Update
-  // 비밀번호 화면
+  // 비밀번호 view
   @GetMapping("/{articleId}/password-view/update")
   public String passwordViewUpdate(
     @PathVariable("articleId") Long articleId,
@@ -61,7 +64,7 @@ public class ArticleController {
     return "article/checkPasswordUpdate";
   }
 
-  // 비밀번호 확인 -> update view(확인)
+  // 비밀번호 확인 후 -> update view로 이동
   @PostMapping("/{articleId}/passwordCheck/update")
   public String checkPasswordUpdate(
     @PathVariable("articleId") Long articleId,
@@ -80,7 +83,7 @@ public class ArticleController {
     }
   }
 
-  // update 실행(확인)
+  // update 실행
   @PostMapping("/{articleId}/update")
   public String update(
     @PathVariable("articleId") Long articleId,
@@ -93,7 +96,7 @@ public class ArticleController {
   }
 
   // Delete
-  // delete-password-view
+  // 비밀번호 view
   @GetMapping("/{articleId}/password-view/delete")
   public String passwordViewDelete(
     @PathVariable("articleId") Long articleId,
