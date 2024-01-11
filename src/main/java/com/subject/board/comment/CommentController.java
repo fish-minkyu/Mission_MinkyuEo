@@ -5,6 +5,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 @RequestMapping("/article")
@@ -34,7 +35,9 @@ public class CommentController {
   ) {
     model.addAttribute("article", articleService.readOne(articleId));
     model.addAttribute("comment", commentService.readOne(commentId));
-    return "comment/checkPasswordDelete";
+    model.addAttribute("type", "comment");
+    model.addAttribute("method", "delete");
+    return "password";
   }
 
   // Delete
@@ -43,14 +46,17 @@ public class CommentController {
     @PathVariable("articleId") Long articleId,
     @PathVariable("commentId") Long commentId,
     @RequestParam("input-password") String inputPassword,
+    RedirectAttributes redirectAttributes,
     Model model
   ) {
     if (commentService.checkPassword(commentId, inputPassword)) {
+      // 비밀번호 일치
+      commentService.delete(commentId);
       return String.format("redirect:/article/%d", articleId);
     } else {
-      model.addAttribute("comment", commentService.readOne(commentId));
-      model.addAttribute("error", "비밀번호가 일치하지 않습니다.");
-      return "comment/checkPasswordDelete";
+      // 비밀번호 불일치
+      redirectAttributes.addFlashAttribute("error", "비밀번호가 일치하지 않습니다.");
+      return "redirect:/article/" + articleId + "/password-view/update"; // 다시 비밀번호 입력 페이지로 리다이렉트
     }
   }
 

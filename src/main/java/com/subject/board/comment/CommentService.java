@@ -52,7 +52,6 @@ public class CommentService {
   ) {
     String passwrod = readOne(commentId).getPassword();
     if (passwrod.equals(inputPassword)) {
-      delete(commentId);
       return true;
     } else return false;
   }

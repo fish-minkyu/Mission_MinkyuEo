@@ -73,7 +73,6 @@ public class ArticleService {
   ) {
     String password = readOne(articleId).getPassword();
     if (password.equals(inputPassword)){
-      delete(articleId);
       return true;
     }
     else return false;
