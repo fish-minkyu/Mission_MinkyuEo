@@ -48,7 +48,6 @@
     <hr/>
     </form>
 </div>
-
 <form th:action="@{/article/{articleId}/comment(articleId=${article.id})}" method="post">
   <div>
     <label>
@@ -61,6 +60,9 @@
     </label>
   </div><br>
   <input type="submit" value="등록">
+</form>
+<form th:action="@{/article}" method="get">
+  <input type="submit" value="뒤로 가기">
 </form>
 </body>
 </html>
