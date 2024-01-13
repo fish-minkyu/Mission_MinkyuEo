@@ -4,10 +4,10 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.ArrayList;
 import java.util.List;
 
-@Getter
-@Setter
+@Getter@Setter
 @Entity
 public class ArticleEntity {
   @Id
@@ -20,5 +20,5 @@ public class ArticleEntity {
   @ManyToOne
   private BoardEntity board;
   @OneToMany(mappedBy = "article")
-  private List<CommentEntity> comments;
+  private List<CommentEntity> comments = new ArrayList<>();
 }

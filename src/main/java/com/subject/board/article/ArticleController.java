@@ -24,7 +24,10 @@ public class ArticleController {
   // Create
   // 게시글 생성 view로 이동
   @GetMapping("/create")
-  public String createPage() {
+  public String createPage(
+    Model model
+  ) {
+    model.addAttribute("boards", boardService.readAll());
     return "article/create";
   }
 

@@ -50,8 +50,8 @@ public class CommentService {
     Long commentId,
     String inputPassword
   ) {
-    String passwrod = readOne(commentId).getPassword();
-    if (passwrod.equals(inputPassword)) {
+    String password = readOne(commentId).getPassword();
+    if (password.equals(inputPassword)) {
       return true;
     } else return false;
   }
